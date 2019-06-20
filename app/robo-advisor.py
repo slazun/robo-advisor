@@ -1,3 +1,28 @@
+# set up imports
+from dotenv import load_dotenv
+import json
+import os
+import requests
+
+def to_usd(my_price):
+    return "${0:,.2f}".format(my_price
+
+# Need to securely input API credentials
+
+# Prompt user to input a stock symbol or symbols
+
+# Validate input with if/elif statements 
+
+# Get API if potentially valid input
+
+# Reformat API error message to be user friendly. Prompt user to try again
+
+# parse data output to make sense of and create variables
+
+# Write historical stock prices to prices.csv
+
+# Calculate recommendation
+
 print("-------------------------")
 print("SELECTED SYMBOL: XYZ")
 print("-------------------------")
