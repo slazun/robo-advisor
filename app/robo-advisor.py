@@ -5,9 +5,16 @@ import os
 import requests
 
 def to_usd(my_price):
-    return "${0:,.2f}".format(my_price
+    return "${0:,.2f}".format(my_price)
 
 # Need to securely input API credentials
+api_key = os.environ.get("ALPHAVANTAGE_API_KEY", "demo")
+symbol = "MSFT" #need user input here
+requests_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey=demo{api_key}"
+response = requests.get(requests_url)
+print(type(response))
+print(response.status_code)
+print(response.text)
 
 # Prompt user to input a stock symbol or symbols
 
