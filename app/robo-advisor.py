@@ -12,9 +12,13 @@ api_key = os.environ.get("ALPHAVANTAGE_API_KEY", "demo")
 symbol = "MSFT" #need user input here
 requests_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey=demo{api_key}"
 response = requests.get(requests_url)
-print(type(response))
-print(response.status_code)
-print(response.text)
+#print(type(response)) <class 'requests.models.Response'> its a string and need to use json module to treat as dictionary
+#print(response.status_code) 200
+#print(response.text)
+
+parsed_response = json.loads(response.text) #parsing string to dictionary
+
+breakpoint() 
 
 # Prompt user to input a stock symbol or symbols
 
