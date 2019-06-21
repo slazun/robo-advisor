@@ -17,8 +17,11 @@ response = requests.get(requests_url)
 #print(response.text)
 
 parsed_response = json.loads(response.text) #parsing string to dictionary
+latest_day = "2019-06-21"
 last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"] #nested dictionary
-latest_close = parsed_response["Time Series (Daily)"]["2019-06-21"]["4. close"] #need to make date not hard coded
+latest_close = parsed_response["Time Series (Daily)"][latest_day]["4. close"] #need to make date not hard coded
+recent_high = parsed_response["Time Series (Daily)"][latest_day]["2. high"] #need to make date not hard coded
+recent_low = parsed_response["Time Series (Daily)"][latest_day]["3. low"] #need to make date not hard coded
 #breakpoint() 
 
 # Prompt user to input a stock symbol or symbols
@@ -43,8 +46,8 @@ print("REQUEST AT: 2018-02-20 02:00pm")
 print("-------------------------")
 print("LATEST DAY:" + " " + str(last_refreshed))
 print("LATEST CLOSE:" + " " + str(to_usd(float(latest_close)))) #need to convert string to float to use usd function
-print("RECENT HIGH: $101,000.00")
-print("RECENT LOW: $99,000.00")
+print("RECENT HIGH:" + " " + str(to_usd(float(recent_high)))) 
+print("RECENT LOW:" + " " + str(to_usd(float(recent_low)))) 
 print("-------------------------")
 print("RECOMMENDATION: BUY!")
 print("RECOMMENDATION REASON: TODO")
