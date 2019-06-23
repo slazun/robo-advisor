@@ -11,7 +11,20 @@ def to_usd(my_price):
 
 # Need to securely input API credentials
 api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
-symbol = input("Please input a valid stock symbol: ") #need user input here
+symbol = input("Please input a valid stock symbol in all caps: ") 
+#allowed = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'] #http://echochamber.me/viewtopic.php?t=73047
+chars = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+if any((c not in chars) for c in symbol):
+    print("Stock symbol invalid. Please try again with a valid symbol.")
+    exit()    
+elif len(symbol) > 4:
+    print("Stock symbol invalid. Please try again with a valid symbol.")
+    exit()
+else:
+    pass
+
+#print(type(symbol)) #need user input here
+
 requests_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey=demo{api_key}"
 response = requests.get(requests_url)
 #print(type(response)) <class 'requests.models.Response'> its a string and need to use json module to treat as dictionary
@@ -20,6 +33,9 @@ response = requests.get(requests_url)
 
 #parse json data
 parsed_response = json.loads(response.text) #parsing string to dictionary
+if 'Error'in parsed_response:
+    print("Stock symbol invalid. Please try again with a valid symbol.")
+    exit()
 
 #create a list of dates to reference
 tsd = parsed_response["Time Series (Daily)"]
@@ -94,7 +110,7 @@ elif float(latest_close) < float(recent_low):
 else: 
     print("RECOMMENDATION: HOLD\nRECOMMENDATION REASON: Data is inconclusive. We're feeling risk averse")
 print("-------------------------")
-print("WRITING DATA TO CSV...")
+print(f"WRITING DATA TO CSV: {csv_file_path}")
 print("-------------------------")
 print("HAPPY INVESTING!")
 print("-------------------------")
