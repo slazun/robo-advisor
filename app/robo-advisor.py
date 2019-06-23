@@ -5,7 +5,6 @@ import os
 import requests
 import datetime
 import csv
-import statistics
 
 def to_usd(my_price):
     return "${0:,.2f}".format(my_price)
@@ -88,8 +87,12 @@ print("LATEST CLOSE:" + " " + str(to_usd(float(latest_close)))) #need to convert
 print("RECENT HIGH:" + " " + str(to_usd(float(recent_high)))) 
 print("RECENT LOW:" + " " + str(to_usd(float(recent_low)))) 
 print("-------------------------")
-print("RECOMMENDATION: BUY!") #if close less than recent low than buy if greateer than high then sell else hold
-print("RECOMMENDATION REASON: TODO")
+if float(latest_close) > float(recent_high):
+    print("RECOMMENDATION: SELL\nRECOMMENDATION REASON: Latest close is greater than recent highs. Don't you like money?") #https://stackoverflow.com/questions/34980251/how-to-print-multiple-lines-of-text-with-python
+elif float(latest_close) < float(recent_low):
+    print("RECOMMENDATION: BUY\nRECOMMENDATION REASON: Latest close is less than recent lows. Don't you like money?")
+else: 
+    print("RECOMMENDATION: HOLD\nRECOMMENDATION REASON: Data is inconclusive. We're feeling risk averse")
 print("-------------------------")
 print("WRITING DATA TO CSV...")
 print("-------------------------")
