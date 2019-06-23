@@ -11,7 +11,7 @@ def to_usd(my_price):
     return "${0:,.2f}".format(my_price)
 
 # Need to securely input API credentials
-api_key = os.environ.get("ALPHAVANTAGE_API_KEY", "demo")
+api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
 symbol = input("Please input a valid stock symbol: ") #need user input here
 requests_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey=demo{api_key}"
 response = requests.get(requests_url)
@@ -61,7 +61,7 @@ recent_low = min(low_prices)
 
 # Calculate recommendation
 
-csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")# a relative filepath. could not get data/prices.csv to work
+csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")# the csv file is not viewing in visual studio but it is showing when i open the csv on my desktop
 csv_headers = ["timestamp", "open", "high", "low", "close", "volume"]
 with open(csv_file_path, "w") as csv_file: # "w" means "open the file for writing"
     writer = csv.DictWriter(csv_file, fieldnames=csv_headers)
