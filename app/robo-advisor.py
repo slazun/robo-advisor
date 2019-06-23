@@ -18,6 +18,10 @@ response = requests.get(requests_url)
 
 parsed_response = json.loads(response.text) #parsing string to dictionary
 latest_day = "2019-06-21"
+tsd = parsed_response["Time Series (Daily)"]
+date_keys = tsd.keys()
+dates = list(date_keys)
+print(dates)
 last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"] #nested dictionary
 latest_close = parsed_response["Time Series (Daily)"][latest_day]["4. close"] #need to make date not hard coded
 recent_high = parsed_response["Time Series (Daily)"][latest_day]["2. high"] #need to make date not hard coded
