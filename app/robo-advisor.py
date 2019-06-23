@@ -11,8 +11,7 @@ def to_usd(my_price):
 
 # Need to securely input API credentials
 api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
-symbol = input("Please input a valid stock symbol in all caps: ") 
-#allowed = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'] #http://echochamber.me/viewtopic.php?t=73047
+symbol = input("Please input a valid stock symbol in all caps: ") #https://stackoverflow.com/questions/5188792/how-to-check-a-string-for-specific-characters
 chars = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
 if any((c not in chars) for c in symbol):
     print("Stock symbol invalid. Please try again with a valid symbol.")
@@ -23,22 +22,27 @@ elif len(symbol) > 4:
 else:
     pass
 
-#print(type(symbol)) #need user input here
+#print(type(symbol)) 
 
 requests_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey=demo{api_key}"
 response = requests.get(requests_url)
 #print(type(response)) <class 'requests.models.Response'> its a string and need to use json module to treat as dictionary
 #print(response.status_code) 200
 #print(response.text)
-
-#parse json data
-parsed_response = json.loads(response.text) #parsing string to dictionary
-if 'Error'in parsed_response:
-    print("Stock symbol invalid. Please try again with a valid symbol.")
+if response.status_code != 200:
+    print("Sorry we have encountered an error with the data request. Please try again.")
     exit()
 
-#create a list of dates to reference
+parsed_response = json.loads(response.text) #parsing string to dictionary
+
+try:
+   parsed_response['Time Series (Daily)']
+except:
+   print("Sorry we have encountered an error with the data request. Please try again.")
+   exit()
+
 tsd = parsed_response["Time Series (Daily)"]
+
 date_keys = tsd.keys() #to do: sort to ensure latest date is first
 dates = list(date_keys) #need to reference first in list as most recent date
 #print(dates)
@@ -62,19 +66,6 @@ for date in dates:
 recent_low = min(low_prices)
 #recent_low = parsed_response["Time Series (Daily)"][latest_day]["3. low"] #minimum of recent not latest
 #breakpoint() 
-
-
-# Validate input with if/elif statements 
-
-# Get API if potentially valid input
-
-# Reformat API error message to be user friendly. Prompt user to try again
-
-# parse data output to make sense of and create variables
-
-# Write historical stock prices to prices.csv
-
-# Calculate recommendation
 
 csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")# the csv file is not viewing in visual studio but it is showing when i open the csv on my desktop
 csv_headers = ["timestamp", "open", "high", "low", "close", "volume"]
