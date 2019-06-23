@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import json
 import os
 import requests
+import datetime
 
 def to_usd(my_price):
     return "${0:,.2f}".format(my_price)
@@ -57,12 +58,12 @@ recent_low = min(low_prices)
 # Write historical stock prices to prices.csv
 
 # Calculate recommendation
-
+now = datetime.datetime.now() 
 print("-------------------------")
 print("SELECTED SYMBOL:" + " " + str(symbol))
 print("-------------------------")
 print("REQUESTING STOCK MARKET DATA...")
-print("REQUEST AT: 2018-02-20 02:00pm")
+print("REQUEST AT: " + " " + now.strftime("%Y-%m-%d %H:%M:%S"))
 print("-------------------------")
 print("LATEST DAY:" + " " + str(last_refreshed))
 print("LATEST CLOSE:" + " " + str(to_usd(float(latest_close)))) #need to convert string to float to use usd function
