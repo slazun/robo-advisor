@@ -9,7 +9,7 @@ def to_usd(my_price):
 
 # Need to securely input API credentials
 api_key = os.environ.get("ALPHAVANTAGE_API_KEY", "demo")
-symbol = "MSFT" #need user input here
+symbol = input("Please input a valid stock symbol: ") #need user input here
 requests_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey=demo{api_key}"
 response = requests.get(requests_url)
 #print(type(response)) <class 'requests.models.Response'> its a string and need to use json module to treat as dictionary
@@ -17,15 +17,22 @@ response = requests.get(requests_url)
 #print(response.text)
 
 parsed_response = json.loads(response.text) #parsing string to dictionary
-latest_day = "2019-06-21"
 tsd = parsed_response["Time Series (Daily)"]
-date_keys = tsd.keys()
-dates = list(date_keys)
-print(dates)
+date_keys = tsd.keys() #to do: sort to ensure latest date is first
+dates = list(date_keys) #need to reference first in list as most recent date
+#print(dates)
+latest_day = dates[0]
 last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"] #nested dictionary
-latest_close = parsed_response["Time Series (Daily)"][latest_day]["4. close"] #need to make date not hard coded
-recent_high = parsed_response["Time Series (Daily)"][latest_day]["2. high"] #need to make date not hard coded
-recent_low = parsed_response["Time Series (Daily)"][latest_day]["3. low"] #need to make date not hard coded
+latest_close = parsed_response["Time Series (Daily)"][latest_day]["4. close"] 
+
+high_prices = [10,20,30,40]
+recent_high = max(high_prices)
+#recent_high = parsed_response["Time Series (Daily)"][latest_day]["2. high"] #recent high is maximum of all recent
+
+low_prices = [10,20,30,40]
+recent_low = min(low_prices)
+
+#recent_low = parsed_response["Time Series (Daily)"][latest_day]["3. low"] #minimum of recent not latest
 #breakpoint() 
 
 # Prompt user to input a stock symbol or symbols
