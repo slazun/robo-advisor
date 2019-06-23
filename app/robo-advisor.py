@@ -5,6 +5,7 @@ import os
 import requests
 import datetime
 import csv
+import statistics
 
 def to_usd(my_price):
     return "${0:,.2f}".format(my_price)
@@ -60,21 +61,21 @@ recent_low = min(low_prices)
 
 # Calculate recommendation
 
-csv_file_path = csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")# a relative filepath. could not get data/prices.csv to work
+csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")# a relative filepath. could not get data/prices.csv to work
 csv_headers = ["timestamp", "open", "high", "low", "close", "volume"]
 with open(csv_file_path, "w") as csv_file: # "w" means "open the file for writing"
     writer = csv.DictWriter(csv_file, fieldnames=csv_headers)
     writer.writeheader() # uses fieldnames set above
-
+    for date in dates:
     #loop to write each row. create dictionary
-    writer.writerow({
-        "timestamp": "TODO",
-        "open": "TODO",
-        "high": "TODO",
-        "low": "TODO",
-        "close": "TODO",
-        "volume": "TODO"
-    })
+        writer.writerow({
+            "timestamp": date,
+            "open": tsd[date]["1. open"],
+            "high": tsd[date]["2. high"],
+            "low": tsd[date]["3. low"],
+            "close": tsd[date]["4. close"],
+            "volume": tsd[date]["5. volume"]
+        })
 now = datetime.datetime.now() 
 print("-------------------------")
 print("SELECTED SYMBOL:" + " " + str(symbol))
@@ -87,7 +88,7 @@ print("LATEST CLOSE:" + " " + str(to_usd(float(latest_close)))) #need to convert
 print("RECENT HIGH:" + " " + str(to_usd(float(recent_high)))) 
 print("RECENT LOW:" + " " + str(to_usd(float(recent_low)))) 
 print("-------------------------")
-print("RECOMMENDATION: BUY!")
+print("RECOMMENDATION: BUY!") #if close less than recent low than buy if greateer than high then sell else hold
 print("RECOMMENDATION REASON: TODO")
 print("-------------------------")
 print("WRITING DATA TO CSV...")
