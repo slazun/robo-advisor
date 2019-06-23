@@ -16,7 +16,10 @@ response = requests.get(requests_url)
 #print(response.status_code) 200
 #print(response.text)
 
+#parse json data
 parsed_response = json.loads(response.text) #parsing string to dictionary
+
+#create a list of dates to reference
 tsd = parsed_response["Time Series (Daily)"]
 date_keys = tsd.keys() #to do: sort to ensure latest date is first
 dates = list(date_keys) #need to reference first in list as most recent date
@@ -25,17 +28,23 @@ latest_day = dates[0]
 last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"] #nested dictionary
 latest_close = parsed_response["Time Series (Daily)"][latest_day]["4. close"] 
 
-high_prices = [10,20,30,40]
+high_prices = []
+for date in dates:
+    high_price = tsd[date]["2. high"]
+    high_prices.append(float(high_price))
+
 recent_high = max(high_prices)
 #recent_high = parsed_response["Time Series (Daily)"][latest_day]["2. high"] #recent high is maximum of all recent
 
-low_prices = [10,20,30,40]
-recent_low = min(low_prices)
+low_prices = []
+for date in dates:
+    low_price = tsd[date]["3. low"]
+    low_prices.append(float(low_price))
 
+recent_low = min(low_prices)
 #recent_low = parsed_response["Time Series (Daily)"][latest_day]["3. low"] #minimum of recent not latest
 #breakpoint() 
 
-# Prompt user to input a stock symbol or symbols
 
 # Validate input with if/elif statements 
 
