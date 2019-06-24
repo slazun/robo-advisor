@@ -30,6 +30,13 @@ python robo_advisor.py
 
 ## Running the App
 
-This application runs off of an API from AlphaVantage. It is necessary for you to obtain your own unique API key in order to run this application. You can obtain your key [here](https://www.alphavantage.co/documentation/#daily). Please follow the instructions below to ensure your personal key is secure. 
+This application runs off of an API from AlphaVantage. It is necessary for you to obtain your own unique API key in order to run this application. You can obtain your key [here](https://www.alphavantage.co/). Please follow the instructions below to ensure your personal key is secure. 
+
+1. Obtain your AlphaVantage API key and store it somewhere secure. Do not store it anywhere public or visible
+2. Create a file called ".env" in your project repository
+3. In the .env file, create a variable called ALPHAVANTAGE_API_KEY. 
+4. Set this vairable equal to your secure API key in the .env file only. Do not put your key in the .py file directly. Ex: ALPHAVANTAGE_API_KEY="abc123" where "abc123" is replaced by your API key
+
+The ALPHAVANTAGE_API_KEY variable is referenced in the robo-advisor.py file and will pull your key into the application to run it without displaying the key. 
 
 
