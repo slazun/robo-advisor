@@ -11,7 +11,7 @@ def to_usd(my_price):
 
 # Need to securely input API credentials
 api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
-symbol = input("Please input a valid stock symbol in all caps: ") #https://stackoverflow.com/questions/5188792/how-to-check-a-string-for-specific-characters
+symbol = input("Please input a valid stock symbol in ALL CAPS: ") #https://stackoverflow.com/questions/5188792/how-to-check-a-string-for-specific-characters
 chars = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
 if any((c not in chars) for c in symbol):
     print("Stock symbol invalid. Please try again with a valid symbol.")

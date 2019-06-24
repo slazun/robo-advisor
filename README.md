@@ -39,4 +39,37 @@ This application runs off of an API from AlphaVantage. It is necessary for you t
 
 The ALPHAVANTAGE_API_KEY variable is referenced in the robo-advisor.py file and will pull your key into the application to run it without displaying the key. 
 
+## Additional Information
+
+After running the "Python robo-advisor.py" command in the terminal, you should see an output like this:
+
+```
+Please input a valid stock symbol in all caps: AMZN
+-------------------------
+SELECTED SYMBOL: AMZN
+-------------------------
+REQUESTING STOCK MARKET DATA...
+REQUEST AT:  2019-06-23 17:47:13
+-------------------------
+LATEST DAY: 2019-06-21
+LATEST CLOSE: $1,911.30
+RECENT HIGH: $1,964.40
+RECENT LOW: $1,566.76
+-------------------------
+RECOMMENDATION: HOLD
+RECOMMENDATION REASON: Data is inconclusive. We're feeling risk averse
+-------------------------
+WRITING DATA TO CSV: ../data/prices.csv
+-------------------------
+HAPPY INVESTING!
+-------------------------
+```
+This output will give you the latest data as of your run time as well as a tailored recommendation to BUY, SELL or HOLD the stock. The recommendations are rather risk averse, given that the application does not know an individual's investment goals. Recommendations are generated as follows:
+
+1. BUY: the latest closing price is below the lowest stock price in the data set
+2. SELL: the latest closing price is higher than the highest stock price in the data set
+3. HOLD: the latest closing price is in between the recent highest and lowest prices
+
+Have fun! 
+
 
