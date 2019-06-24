@@ -28,3 +28,8 @@ Now, from within the environment you should be able to execute (from the command
 python robo_advisor.py
 ```
 
+## Running the App
+
+This application runs off of an API from AlphaVantage. It is necessary for you to obtain your own unique API key in order to run this application. You can obtain your key [here](https://www.alphavantage.co/documentation/#daily). Please follow the instructions below to ensure your personal key is secure. 
+
+
