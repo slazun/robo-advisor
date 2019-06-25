@@ -10,6 +10,7 @@ def to_usd(my_price):
     return "${0:,.2f}".format(my_price)
 
 # Need to securely input API credentials
+load_dotenv() #Update post submitting. noticed that i was still calling the demo API even tho I set up the env. Changed bc it was bothering me, not because I expect credit :)
 api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
 symbol = input("Please input a valid stock symbol in ALL CAPS: ") #https://stackoverflow.com/questions/5188792/how-to-check-a-string-for-specific-characters
 chars = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
@@ -24,7 +25,7 @@ else:
 
 #print(type(symbol)) 
 
-requests_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey=demo{api_key}"
+requests_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={api_key}"
 response = requests.get(requests_url)
 #print(type(response)) <class 'requests.models.Response'> its a string and need to use json module to treat as dictionary
 #print(response.status_code) 200
